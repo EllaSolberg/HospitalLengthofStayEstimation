@@ -22,6 +22,8 @@
             max-width: 500px;
             width: 100%;
             margin: 20px;
+            overflow-y: auto;
+            max-height: 80vh;
         }
         h1 {
             text-align: center;
@@ -38,7 +40,7 @@
             font-weight: bold;
             margin-bottom: 5px;
         }
-        input[type="number"] {
+        input[type="number"], input[type="radio"] {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
@@ -107,13 +109,13 @@
                 <label for="sykdom_nei">Nei</label>
             </div>
 
-            <label for="tidlig_overlevelsesestimat_gjennomsnitt">Tidlig overlevelsesestimat gjennomsnitt:</label>
+            <label for="tidlig_overlevelsesestimat_gjennomsnitt">Tidlig overlevelsesestimat gjennomsnitt = lege_overlevelsesestimat 2mnd + overlevelsesestimat 6mnd / 2:</label>
             <input type="number" id="tidlig_overlevelsesestimat_gjennomsnitt" name="tidlig_overlevelsesestimat_gjennomsnitt" step="any" required>
 
-            <label for="sen_overlevelsesestimat_gjennomsnitt">Sen overlevelsesestimat gjennomsnitt:</label>
+            <label for="sen_overlevelsesestimat_gjennomsnitt">Sen overlevelsesestimat gjennomsnitt = lege overlevelsesestimat 6mnd + overlevelsesestimat 2mnd / 2:</label>
             <input type="number" id="sen_overlevelsesestimat_gjennomsnitt" name="sen_overlevelsesestimat_gjennomsnitt" step="any" required>
 
-            <label for="helsetilstand">Helsetilstand:</label>
+            <label for="helsetilstand">Helsetilstand = fysiologisk_score * koma_score:</label>
             <input type="number" id="helsetilstand" name="helsetilstand" step="any" required>
 
             <button type="submit">Forutsi</button>
@@ -123,6 +125,7 @@
     </div>
 </body>
 </html>
+
 
 
 
