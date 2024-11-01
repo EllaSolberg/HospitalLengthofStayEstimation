@@ -3,60 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <title>Prediksjon med GradientBoosting Modellen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4a90e2;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #357abd;
+        }
+        .prediction {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #4a90e2;
+        }
+    </style>
 </head>
 <body>
-    <h1>Prediksjon med GradientBoosting Modellen</h1>
-    <form action="/predict" method="POST">
+    <div class="container">
+        <h1>Prediksjon med GradientBoosting Modellen</h1>
+        <form action="/predict" method="POST">
+            <label for="fysiologisk_score">Fysiologisk Score:</label>
+            <input type="number" id="fysiologisk_score" name="fysiologisk_score" step="any" required>
 
+            <label for="apache_fysiologisk_score">APACHE Fysiologisk Score:</label>
+            <input type="number" id="apache_fysiologisk_score" name="apache_fysiologisk_score" step="any" required>
 
-        <label for="fysiologisk_score">Fysiologisk Score:</label>
-        <input type="number" id="fysiologisk_score" name="fysiologisk_score" step="any" required><br>
+            <label for="overlevelsesestimat_2mnd">Overlevelsesestimat 2 måneder:</label>
+            <input type="number" id="overlevelsesestimat_2mnd" name="overlevelsesestimat_2mnd" step="any" required>
 
-        <label for="apache_fysiologisk_score">APACHE Fysiologisk Score:</label>
-        <input type="number" id="apache_fysiologisk_score" name="apache_fysiologisk_score" step="any"  required><br>
+            <label for="lege_overlevelsesestimat_6mnd">Lege Overlevelsesestimat 6 måneder:</label>
+            <input type="number" id="lege_overlevelsesestimat_6mnd" name="lege_overlevelsesestimat_6mnd" step="any" required>
 
-        <!-- Nye felter -->
-        <label for="overlevelsesestimat_2mnd">Overlevelsesestimat 2 måneder:</label>
-        <input type="number" id="overlevelsesestimat_2mnd" name="overlevelsesestimat_2mnd" step="any" required><br>
+            <label for="alder">Alder:</label>
+            <input type="number" id="alder" name="alder" step="any" required>
 
-        <label for="lege_overlevelsesestimat_6mnd">Lege Overlevelsesestimat 6 måneder:</label>
-        <input type="number" id="lege_overlevelsesestimat_6mnd" name="lege_overlevelsesestimat_6mnd" step="any" required><br>
+            <label for="blodtrykk">Blodtrykk:</label>
+            <input type="number" id="blodtrykk" name="blodtrykk" step="any" required>
 
-        <label for="sykdom_underkategori_ARF_MOSF">Sykdomskategori ARF/MOSF w/Sepsis:</label>
-        <input type="number" id="sykdom_underkategori_ARF_MOSF" name="sykdom_underkategori_ARF_MOSF"step="any"  required><br>
+            <label for="lungefunksjon">Lungefunksjon:</label>
+            <input type="number" id="lungefunksjon" name="lungefunksjon" step="any" required>
 
-        <label for="alder">Alder:</label>
-        <input type="number" id="alder" name="alder" step="any" required><br>
+            <label for="serumalbumin">Serumalbumin:</label>
+            <input type="number" id="serumalbumin" name="serumalbumin" step="any" required>
 
-        <label for="blodtrykk">Blodtrykk:</label>
-        <input type="number" id="blodtrykk" name="blodtrykk" step="any" required><br>
+            <label for="blod_ph">Blod pH:</label>
+            <input type="number" id="blod_ph" name="blod_ph" step="0.01" min="0" max="14" required>
 
-        <label for="lungefunksjon">Lungefunksjon:</label>
-        <input type="number" id="lungefunksjon" name="lungefunksjon" step="any" required><br>
+            <label for="sykdom_underkategori_ARF/MOSF w/Sepsis">Har du sykdomskategori ARF/MOSF w/Sepsis:</label>
+            <div>
+                <input type="radio" id="sykdom_ja" name="sykdom_underkategori_ARF/MOSF w/Sepsis" value="1.0" required>
+                <label for="sykdom_ja">Ja</label>
+                
+                <input type="radio" id="sykdom_nei" name="sykdom_underkategori_ARF/MOSF w/Sepsis" value="0.0" required>
+                <label for="sykdom_nei">Nei</label>
+            </div>
 
-        <label for="serumalbumin">Serumalbumin:</label>
-        <input type="number" id="serumalbumin" name="serumalbumin"step="any"  required><br>
+            <label for="tidlig_overlevelsesestimat_gjennomsnitt">Tidlig overlevelsesestimat gjennomsnitt:</label>
+            <input type="number" id="tidlig_overlevelsesestimat_gjennomsnitt" name="tidlig_overlevelsesestimat_gjennomsnitt" step="any" required>
 
-        <label for="kreatinin">Kreatinin:</label>
-        <input type="number" id="kreatinin" name="kreatinin"step="any"  required><br>
+            <label for="sen_overlevelsesestimat_gjennomsnitt">Sen overlevelsesestimat gjennomsnitt:</label>
+            <input type="number" id="sen_overlevelsesestimat_gjennomsnitt" name="sen_overlevelsesestimat_gjennomsnitt" step="any" required>
 
-        <label for="blod_ph">Blod pH:</label>
-        <input type="number" id="blod_ph" name="blod_ph" step="any" required><br>
+            <label for="helsetilstand">Helsetilstand:</label>
+            <input type="number" id="helsetilstand" name="helsetilstand" step="any" required>
 
-        <label for="gjennomsnitt_overlevelsesestimat_estimat_1">Gjennomsnittlig Overlevelsesestimat 1:</label>
-        <input type="number" id="gjennomsnitt_overlevelsesestimat_estimat_1" name="gjennomsnitt_overlevelsesestimat_estimat_1" step="any" required><br>
+            <button type="submit">Forutsi</button>
+        </form>
 
-        <label for="gjennomsnitt_overlevelsesestimat_estimat_2">Gjennomsnittlig Overlevelsesestimat 2:</label>
-        <input type="number" id="gjennomsnitt_overlevelsesestimat_estimat_2" name="gjennomsnitt_overlevelsesestimat_estimat_2" step="any" required><br>
-
-        <label for="helsetilstand">Helsetilstand:</label>
-        <input type="number" id="helsetilstand" name="helsetilstand"step="any"  required><br>
-
-        <button type="submit">Forutsi</button>
-    </form>
-
-    <h2>{{ prediction_text }}</h2>
+        <div class="prediction">{{ prediction_text }}</div>
+    </div>
 </body>
 </html>
+
+
+
 
 
