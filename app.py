@@ -4,25 +4,20 @@ import pickle
 import numpy as np
 import pandas as pd
 
-# Load the saved model and imputer
 with open('model_with_imputer.pkl', 'rb') as file:
     loaded_data = pickle.load(file)
 
 model = loaded_data['model']
 imputer = loaded_data['imputer']
 
-# Initialize the Flask application
 app = Flask(__name__)
 
-# Route for the homepage that loads the HTML form
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Route to handle prediction
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Retrieve data from the form and convert all values to float
     data = {
     'antall_komorbiditeter': float(1.840850),
     'koma_score': float(11.579310),
@@ -50,7 +45,6 @@ def predict():
     'glukose': float(135.306539),
     'blodurea_nitrogen': float(13.360405),
     'urinmengde': float(2389.054310),
-    'adl': float(1.615943),
     'sykdom_underkategori_ARF/MOSF w/Sepsis': float(request.form['sykdom_underkategori_ARF/MOSF w/Sepsis']),
     'sykdom_underkategori_CHF': float(0.156034),
     'sykdom_underkategori_COPD': float(0.112931	),
@@ -76,22 +70,17 @@ def predict():
 }
 
     
-    # Convert data to DataFrame
     input_df = pd.DataFrame([data])
 
-    # Impute missing values
     input_df_imputed = imputer.set_output(transform = "pandas").transform(input_df)
 
-    # Generate prediction
     prediction = model.predict(input_df_imputed)[0]
 
-    # Send the prediction back to index.html
     return render_template(
         'index.html',
         prediction_text=f'Predikert verdi: {prediction:.2f}'
     )
 
-# Run the server locally
 if __name__ == '__main__':
     print("http://localhost:8080")
     serve(app, host='0.0.0.0', port=8080)

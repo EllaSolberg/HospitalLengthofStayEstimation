@@ -74,10 +74,10 @@
         <h1>Prediksjon med GradientBoosting Modellen</h1>
         <form action="/predict" method="POST">
             <label for="fysiologisk_score">Fysiologisk Score:</label>
-            <input type="number" id="fysiologisk_score" name="fysiologisk_score" step="any" required>
+            <input type="number" id="fysiologisk_score" name="fysiologisk_score" step="any" min="0" required>
 
             <label for="apache_fysiologisk_score">APACHE Fysiologisk Score:</label>
-            <input type="number" id="apache_fysiologisk_score" name="apache_fysiologisk_score" step="any" required>
+            <input type="number" id="apache_fysiologisk_score" name="apache_fysiologisk_score" min="0" step="any" required>
 
             <label for="overlevelsesestimat_2mnd">Overlevelsesestimat 2 måneder:</label>
             <input type="number" id="overlevelsesestimat_2mnd" name="overlevelsesestimat_2mnd" step="any" min="0" max="1" required>
@@ -86,16 +86,16 @@
             <input type="number" id="lege_overlevelsesestimat_6mnd" name="lege_overlevelsesestimat_6mnd" step="any" min="0" max="1" required>
 
             <label for="alder">Alder:</label>
-            <input type="number" id="alder" name="alder" step="any" required>
+            <input type="number" id="alder" name="alder" step="any" min="0" required>
 
             <label for="blodtrykk">Blodtrykk:</label>
-            <input type="number" id="blodtrykk" name="blodtrykk" step="any" required>
+            <input type="number" id="blodtrykk" name="blodtrykk" step="any" min="0" required>
 
             <label for="lungefunksjon">Lungefunksjon:</label>
-            <input type="number" id="lungefunksjon" name="lungefunksjon" step="any" required>
+            <input type="number" id="lungefunksjon" name="lungefunksjon" step="any" min="0" required>
 
             <label for="serumalbumin">Serumalbumin:</label>
-            <input type="number" id="serumalbumin" name="serumalbumin" step="any" required>
+            <input type="number" id="serumalbumin" name="serumalbumin" step="any" min="0" required>
 
             <label for="blod_ph">Blod pH:</label>
             <input type="number" id="blod_ph" name="blod_ph" step="0.01" min="0" max="14" required>
@@ -110,13 +110,13 @@
             </div>
 
             <label for="tidlig_overlevelsesestimat_gjennomsnitt">Tidlig overlevelsesestimat gjennomsnitt = lege_overlevelsesestimat 2mnd + overlevelsesestimat 6mnd / 2:</label>
-            <input type="number" id="tidlig_overlevelsesestimat_gjennomsnitt" name="tidlig_overlevelsesestimat_gjennomsnitt" step="any" required>
+            <input type="number" id="tidlig_overlevelsesestimat_gjennomsnitt" name="tidlig_overlevelsesestimat_gjennomsnitt" min="0" step="any" required>
 
             <label for="sen_overlevelsesestimat_gjennomsnitt">Sen overlevelsesestimat gjennomsnitt = lege overlevelsesestimat 6mnd + overlevelsesestimat 2mnd / 2:</label>
-            <input type="number" id="sen_overlevelsesestimat_gjennomsnitt" name="sen_overlevelsesestimat_gjennomsnitt" step="any" required>
+            <input type="number" id="sen_overlevelsesestimat_gjennomsnitt" name="sen_overlevelsesestimat_gjennomsnitt" step="any" min="0" required>
 
             <label for="helsetilstand">Helsetilstand = fysiologisk_score * koma_score:</label>
-            <input type="number" id="helsetilstand" name="helsetilstand" step="any" required>
+            <input type="number" id="helsetilstand" name="helsetilstand" step="any" min="0" required>
 
             <button type="submit">Forutsi</button>
         </form>
